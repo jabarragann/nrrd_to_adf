@@ -468,7 +468,7 @@ class NRRD2ADFConverterGUI(QWidget):
 
     def select_fiducial_cb(self):
         options = QFileDialog.Options()
-        fiducial_filepath, _ = QFileDialog.getOpenFileName(self, "Open Fiducial File", "", "JSON Files (*.json)", options=options)
+        fiducial_filepath, _ = QFileDialog.getOpenFileName(self, "Open Fiducial File from 3D Slicer", "", "JSON Files (*.json)", options=options)
         
         if fiducial_filepath:
             self.fiducial_filepath.setText(fiducial_filepath)
