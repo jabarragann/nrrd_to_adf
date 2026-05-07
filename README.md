@@ -31,12 +31,11 @@ python3 nrrd_to_adf.py -h
 |-p   |Optional slices prefix| Optional prefix to be appended to saved slices|
 |--slices_path   |Optional Path for slices| Provide a path for the slices|
 
-## Re-importing PNGS to slicer 3D 
+## Re-importing PNGS to 3D Slicer 
 
 Tested on Slicer `5.8.1` and Ubuntu 24.04
 
-### Option 1: Convert back to .nrrd
-Use `update_seg_nrrd.py` to convert the PNG slices back to a .seg.nrrd file. 
+Use `update_seg_nrrd_data_from_pngs.py` to convert the PNG slices back to a .seg.nrrd file. 
 
 ```bash
 python update_seg_nrrd.py \
@@ -46,8 +45,12 @@ python update_seg_nrrd.py \
     -o seg_post_updated.seg.nrrd
 ```
 
-### Option 2: Re-importing PNGs directly
-In Slicer 3D `5,8.1`, the PNGs exported by `seg_nrrd_to_pngs.py` can be re-imported as a volume. However, the PNGs need to be flipped and converted to RGBA format. This can be done using ImageMagick with the following command:
+<details> 
+<summary><strong>
+Note on re-importing PNGs to 3D Slicer
+</strong></summary>
+
+In Slicer 3D `5,8.1`, the PNGs exported by `seg_nrrd_to_pngs.py` can be re-imported directly as a volume without `update_seg_nrrd_data_from_pngs.py`. However, the PNGs need to be flipped and converted to RGBA format. This can be done using ImageMagick:
 
 ```bash
 mkdir -p png-fixed-1mm
@@ -62,3 +65,4 @@ for f in ./volume_with_1mm_drill/*.png; do
 done
 
 ```
+</details>
