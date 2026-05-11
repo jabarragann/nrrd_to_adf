@@ -45,24 +45,3 @@ python update_seg_nrrd.py \
     -o seg_post_updated.seg.nrrd
 ```
 
-<details> 
-<summary><strong>
-Note on re-importing PNGs to 3D Slicer
-</strong></summary>
-
-In Slicer 3D `5,8.1`, the PNGs exported by `seg_nrrd_to_pngs.py` can be re-imported directly as a volume without `update_seg_nrrd_data_from_pngs.py`. However, the PNGs need to be flipped and converted to RGBA format. This can be done using ImageMagick:
-
-```bash
-mkdir -p png-fixed-1mm
-
-for f in ./volume_with_1mm_drill/*.png; do
-  convert "$f" \
-    -flip \
-    -alpha on \
-    -define png:color-type=6 \
-    -depth 8 \
-    "png-fixed-1mm/$(basename "$f")"
-done
-
-```
-</details>
