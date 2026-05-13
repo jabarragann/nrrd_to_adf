@@ -50,7 +50,6 @@ from PyQt5.QtCore import Qt
 from seg_nrrd_to_pngs import SegmentInfo, SegNrrdCoalescer
 from nrrd_to_adf import *
 from volume_data_to_slices import save_volume_data_as_slices
-import json
 
 
 class NRRD2ADFConverterGUI(QWidget):
@@ -476,31 +475,7 @@ class NRRD2ADFConverterGUI(QWidget):
 
     def load_fiducial_cb(self):
         if self.fiducial_filepath.text():
-            with open(self.fiducial_filepath.text(), 'r') as f:
-                fiducials_json = json.load(f)["markups"][0]
-
-                coordinate_system = fiducials_json["coordinateSystem"]
-                coordinate_units = 1.0 
-                if fiducials_json["coordinateUnits"] == "mm":
-                    coordinate_units = 0.001
-
-                for fiducial in fiducials_json["controlPoints"]:
-                    fiducial_name = fiducial["label"].replace("-", "_") # ADF does not allow "-" , so replace with underscores
-                    if (coordinate_system == "LPS"):
-                        self.fiducials_data.append({
-                            "name": fiducial_name,
-                            "position": [fiducial["position"][0] * coordinate_units, fiducial["position"][1] * coordinate_units, fiducial["position"][2] * coordinate_units],
-                            "orientation": fiducial["orientation"]
-                        })
-
-                    elif (coordinate_system == "RAS"):
-                        self.fiducials_data.append({
-                            "name": fiducial_name,
-                            "position": [-fiducial["position"][0] * coordinate_units, -fiducial["position"][1] * coordinate_units, fiducial["position"][2] * coordinate_units],
-                            "orientation": fiducial["orientation"]
-                        })
-                
-                print(f"INFO! Loaded {len(self.fiducials_data)} fiducials from {self.fiducial_filepath.text()}")
+            self.fiducials_data = load_fiducials(self.fiducial_filepath.text())
         else:
             print("No fiducial file path provided.")
             
