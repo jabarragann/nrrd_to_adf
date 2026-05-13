@@ -291,13 +291,13 @@ def copy_shaders(from_path, to_path: str):
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument('-n', action='store', dest='nrrd_file', help='Specify NRRD filepath', required = True)
-    parser.add_argument('-a', action='store', dest='adf_filepath', help='Specify ADF filepath', required = True)
-    parser.add_argument('-p', action='store', dest='slices_prefix', help='Specify slices prefix', default='slice0')
-    parser.add_argument('-c', action='store', dest='color_lut', help='Set Color LUT', required=False)
-    parser.add_argument('-s', action='store', dest="save_slices", help="Save slices. Can choose not to save slices again if they are already saved", default=True)
+    parser.add_argument('-n', '--nrrd_file', action='store', dest='nrrd_file', help='Specify NRRD filepath', required = True)
+    parser.add_argument('-a', '--adf_filepath', action='store', dest='adf_filepath', help='Specify ADF filepath', required = True)
+    parser.add_argument('-p', '--slices_prefix', action='store', dest='slices_prefix', help='Specify slices prefix', default='slice0')
+    parser.add_argument('-c', '--color_lut', action='store', dest='color_lut', help='Set Color LUT', required=False)
+    parser.add_argument('-s', '--save_slices', action='store', dest="save_slices", help="Save slices. Can choose not to save slices again if they are already saved", default=True)
     parser.add_argument('--slices_path', action='store', dest="slices_path", help="Specify path for slices, defaults to the location of ADF filepath", default=None)
-    parser.add_argument('-f', action='store', dest='fiducial_filepath', help='Specify fiducial JSON filepath (from 3D Slicer)', required=False, default=None)
+    parser.add_argument('-f', '--fiducial_filepath', action='store', dest='fiducial_filepath', help='Specify fiducial JSON filepath (from 3D Slicer)', required=False, default=None)
     
     parsed_args = parser.parse_args()
     print('Specified Arguments')
