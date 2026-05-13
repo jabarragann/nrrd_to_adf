@@ -298,6 +298,7 @@ def main():
     parser.add_argument('-s', '--save_slices', action='store', dest="save_slices", help="Save slices. Can choose not to save slices again if they are already saved", default=True)
     parser.add_argument('--slices_path', action='store', dest="slices_path", help="Specify path for slices, defaults to the location of ADF filepath", default=None)
     parser.add_argument('-f', '--fiducial_filepath', action='store', dest='fiducial_filepath', help='Specify fiducial JSON filepath (from 3D Slicer)', required=False, default=None)
+    parser.add_argument('-v', '--volume_name', action='store', dest='volume_name', help='Override volume name (defaults to NRRD filename)', required=False, default=None)
     
     parsed_args = parser.parse_args()
     print('Specified Arguments')
@@ -326,7 +327,11 @@ def main():
                             parsed_args.nrrd_file,
                             rel_slices_path,
                             parsed_args.slices_prefix)
-    
+
+    if parsed_args.volume_name:
+        adf_data.set_volume_name(parsed_args.volume_name)
+        adf_data.set_parent_body_name_attribute(adf_data.volume_data["name"] + "_Anatomical_Origin")
+
     if parsed_args.color_lut:
         print("INFO! Setting Color LUT to:", parsed_args.color_lut)
         rel_lut_path = os.path.relpath(parsed_args.color_lut, os.path.dirname(parsed_args.adf_filepath))
